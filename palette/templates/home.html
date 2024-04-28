@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block main %}
+<h1 class="display">Shade Sync</h1>
+<div class="home-info">
+  <p>
+    
+  </p>
+</div>
+<form method="POST" action="" enctype="multipart/form-data" class="img-upload">
+  {{ form.hidden_tag() }}
+  <div>
+      {{ form.picture.label() }}
+      <br>
+      {{ form.picture() }}
+      {% if form.picture.errors %}
+          {% for error in form.picture.errors %}
+              <small style="color: red">{{ error }}</small>
+          {% endfor %}
+      {% endif %}
+  </div>
+  <div>
+    <input id="colorCount" name="colorCount" type="range" value="2" min="2" max="100" />
+    <br>
+    <label for="colorCount">
+      Number of colors:
+      <span id="colorCountValue"></span>
+    </label>
+  </div>
+  {{ form.submit.label() }}
+  {{ form.submit() }}
+</form>
+<script>
+  let slider = document.getElementById("colorCount");
+  let colorValue = document.getElementById("colorCountValue");
+  colorValue.innerHTML = slider.value; // Display the default slider value
+
+  // Update the current slider value (each time you drag the slider handle)
+  slider.oninput = function() {
+    colorValue.innerHTML = this.value;
+  }
+  </script>
+{% endblock main %}
